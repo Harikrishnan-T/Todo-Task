@@ -7,6 +7,7 @@ import (
 
 	"todo-app/config"
 	"todo-app/models"
+	"todo-app/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -35,6 +36,12 @@ func main() {
 
 	// Define routes
 	r.GET("/", func(c *gin.Context) {
+		var token, err1 = utils.GenerateToken(123456)
+		if err1 != nil {
+			return
+		}
+		fmt.Println(token)
+		fmt.Println(utils.ValidateToken(token))
 		config.ConnectDatabase()
 		var user []models.User
 
